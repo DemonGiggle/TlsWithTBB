@@ -6,14 +6,15 @@ Well, few days ago, I ran into trouble when mixing tls and tbb library. Finally,
 Platform
 --------
 
-Ubuntu 11.04
-glibc 2.13
-gcc 4.7.1
-tbb41 20121003oss
+* Ubuntu 11.04
+* glibc 2.13
+* gcc 4.7.1
+* tbb41 20121003oss
 
 Test Software
 -------------
-valgrind 3.8.1
+
+* valgrind 3.8.1
 
 How to try
 ----------
