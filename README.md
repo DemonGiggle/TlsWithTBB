@@ -66,3 +66,8 @@ Result
 ==13972== For counts of detected and suppressed errors, rerun with: -v
 ==13972== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 2 from 2)
 ```
+
+Analysis
+--------
+
+The problem is that the TLS initialization (__tls_get_addr()) will call mmap() directly, but the in uninitialization phase (_dl_deallocate_tls()), it calls free(), which is in turn hooked by tbb. In short, the TLS memory passed to free() in tbb is not created from malloc() in tbb.
