@@ -1,13 +1,20 @@
 #include <pthread.h>
+#include <tbb/enumerable_thread_specific.h>
 
-__thread int* tls_value = 0;
+struct thread_st
+{
+    int value;
+};
+
+typedef tbb::enumerable_thread_specific<thread_st> tbb_tls;
+tbb_tls per_thread_data;
 
 void* thread_func(void* arg)
 {
     for (int i = 0; i < 1000000; i++);
 
-    int g = 12222;
-    tls_value = &g;
+    tbb_tls::reference thread_data = per_thread_data.local();
+    thread_data.value = 3;
 }
 
 int* hello()
@@ -18,5 +25,5 @@ int* hello()
 
     void* return_value;
     pthread_join(t, &return_value);
-    return tls_value;
+    return NULL;
 }
